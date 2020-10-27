@@ -11,14 +11,15 @@ const connectDB= async()=>{
    process.exit()
  }
 }
+
+connectDB()
+const app=express()
 app.use((req, res, next) => {
   res.setHeader('Access-control-Allow-Origin', '*');
   res.setHeader('Access-control-Allow-Methods', 'OPTIONS,GET,POST,PUT,PATCH,DELETE');
   res.setHeader('Access-control-Allow-Headers', 'Content-Type, Authorization');
   next();
 });
-connectDB()
-const app=express()
 app.use(express.urlencoded({extended:false}))
 app.use(express.json())
 app.use('/api/users',require('./routes/API/users'))
