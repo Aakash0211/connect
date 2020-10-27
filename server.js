@@ -1,26 +1,11 @@
 const express=require('express')
 const mongoose =require('mongoose')
 const path=require('path')
-const connectDB= async()=>{ 
- try{
-   mongoose.connect('mongodb://localhost/admin',{useNewUrlParser:true,useUnifiedTopology:true,useCreateIndex:true,useFindAndModify:false})
-   console.log("connected to MongoDB")
- }
- catch(err){
-   console.log(err.msg)
-   process.exit()
- }
-}
+const connectDB = require('./config/db');
 
 connectDB()
 const app=express()
-app.use((req, res, next) => {
-  res.setHeader('Access-control-Allow-Origin', '*');
-  res.setHeader('Access-control-Allow-Methods', 'OPTIONS,GET,POST,PUT,PATCH,DELETE');
-  res.setHeader('Access-control-Allow-Headers', 'Content-Type, Authorization');
-  next();
-});
-app.use(express.urlencoded({extended:false}))
+
 app.use(express.json())
 app.use('/api/users',require('./routes/API/users'))
 app.use('/api/profile',require('./routes/API/profile'))
